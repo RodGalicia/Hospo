@@ -13,14 +13,7 @@ const restaurantSchema = new Schema({
         trim: true,
         required: "Enter an address for the restaurant"
     },
-    coordx: {
-        type: Number,
-        required: "Enter a coordinate X for the restaurant"
-    },
-    coordy: {
-        type: Number,
-        required: "Enter a coordinate Y for the restaurant"
-    },
+    
     manager: {
         type: String,
         trim: true,
