@@ -2,22 +2,31 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const transactionSchema = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         trim: true,
-        required: "Enter a name for transaction"
+        required: "Enter a name for the user"
     },
-    value: {
-        type: Number,
-        required: "Enter an amount"
+    lastname: {
+        type: String,
+        trim: true,
+        required: "Enter a last name for the user"
     },
-    date: {
-        type: Date,
-        default: Date.now
+    email: {
+        type: String,
+        trim: true,
+        required: "Enter an email for the user"
+    },
+    password: {
+        type: String,
+        trim: true,
+        required: "Enter a password for the user"
     }
+    
 });
 
-const Transaction = mongoose.model("Transaction", transactionSchema);
+const User = mongoose.model("User", userSchema)
 
-module.exports = Transaction;
+
+module.exports = User;
