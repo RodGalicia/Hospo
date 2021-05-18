@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { schema } = require("./job");
 
 const Schema = mongoose.Schema;
 
@@ -36,7 +35,7 @@ const restaurantSchema = new Schema({
 
     }],
     reviews:[{
-        type:schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:"Review"
 
     }]

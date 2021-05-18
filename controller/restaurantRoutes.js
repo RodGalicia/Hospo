@@ -1,9 +1,11 @@
+const mongoose = require("mongoose");
 const express = require("express");
-const restModel = require("../models/restaurant");
 const app = express();
 
+var {Restaurant} = require('../models');
+
 app.get("/restaurants", async (request, response) => {
-    const restaurants = await restModel.find({});
+    const restaurants = await Restaurant.find({});
 
     try {
         response.send(restaurants);
