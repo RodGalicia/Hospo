@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { schema } = require("./job");
 
 const Schema = mongoose.Schema;
 
@@ -28,7 +29,17 @@ const restaurantSchema = new Schema({
         type: String,
         trim: true,
         required: "Enter an email for the manager"
-    }
+    },
+    jobs:[{
+        type: Schema.Types.ObjectId,
+        ref:"Job"
+
+    }],
+    reviews:[{
+        type:schema.Types.ObjectId,
+        ref:"Review"
+
+    }]
     
 });
 
