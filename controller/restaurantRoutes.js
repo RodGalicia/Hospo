@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const express = require("express");
-const app = express();
+const router = require("express").Router();
+
 
 var {Restaurant} = require('../models');
 var {Job} = require('../models');
 var {Review} = require('../models');
 
-app.get("/api/restaurants", async (request, response) => {
+router.get("/", async (request, response) => {
     const restaurants = await Restaurant.find({});
 
     try {
@@ -16,7 +16,7 @@ app.get("/api/restaurants", async (request, response) => {
     }
 });
 
-app.post("/api/restaurant", async (request, response) => {
+router.post("/", async (request, response) => {
 
   //console.log(request.body);
     const restaurant = new Restaurant({
@@ -37,7 +37,7 @@ app.post("/api/restaurant", async (request, response) => {
     }
   });
 
-  app.patch("/api/restaurant/:id", async (request, response) => {
+  router.patch("/:id", async (request, response) => {
 
     const objRest = {
       name: request.body.name , 
@@ -56,7 +56,7 @@ app.post("/api/restaurant", async (request, response) => {
     }
   });
 
-  app.delete("/api/restaurant/:id", async (request, response) => {
+  router.delete("/:id", async (request, response) => {
     try {
       const restaurant = await Restaurant.findByIdAndDelete(request.params.id);
   
@@ -67,7 +67,7 @@ app.post("/api/restaurant", async (request, response) => {
     }
   });
 
-  app.post("/api/addJob/:id", async (request, response) => {
+  router.post("/addJob/:id", async (request, response) => {
 
     const restaurant = await Restaurant.findById(request.params.id);
     if(restaurant!=null){
@@ -83,7 +83,7 @@ app.post("/api/restaurant", async (request, response) => {
     }
     });
 
-    app.post("/api/addReview/:id", async (request, response) => {
+    router.post("/addReview/:id", async (request, response) => {
 
       const restaurant = await Restaurant.findById(request.params.id);
       if(restaurant!=null){
@@ -99,7 +99,7 @@ app.post("/api/restaurant", async (request, response) => {
       }
       });
 
-      app.post("/api/addJob/:id", async (request, response) => {
+      router.post("/addJob/:id", async (request, response) => {
 
     const restaurant = await Restaurant.findById(request.params.id);
     if(restaurant!=null){
@@ -115,7 +115,7 @@ app.post("/api/restaurant", async (request, response) => {
     }
     });
 
-    app.post("/api/addReview/:id", async (request, response) => {
+    router.post("/addReview/:id", async (request, response) => {
 
       const restaurant = await Restaurant.findById(request.params.id);
       if(restaurant!=null){
@@ -131,7 +131,7 @@ app.post("/api/restaurant", async (request, response) => {
       }
       });
 
-      app.delete("/api/removeJob/:id/:job_id", async (request, response) => {
+      router.delete("/removeJob/:id/:job_id", async (request, response) => {
 
         const restaurant = await Restaurant.findById(request.params.id);
         if(restaurant!=null){
@@ -147,7 +147,7 @@ app.post("/api/restaurant", async (request, response) => {
         }
         });
     
-        app.delete("/api/removeReview/:id/:rev_id", async (request, response) => {
+        router.delete("/removeReview/:id/:rev_id", async (request, response) => {
     
           const restaurant = await Restaurant.findById(request.params.id);
           if(restaurant!=null){
@@ -163,4 +163,4 @@ app.post("/api/restaurant", async (request, response) => {
           }
           });
 
-module.exports = app;
+module.exports = router;

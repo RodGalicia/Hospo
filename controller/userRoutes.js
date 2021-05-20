@@ -1,10 +1,31 @@
 const mongoose = require("mongoose");
-const express = require("express");
-const app = express();
-
+const router = require("express").Router();
+const passport = require('passport');
 var {User} = require('../models');
+// this will run when a POST request hits the endpoint /api/users/login
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local',
+  (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
 
-app.get("/api/users", async (request, response) => {
+    if (!user) {
+      return res.status(404).json('no user found', info);
+    }
+
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json(user);
+    });
+
+  })(req, res, next);
+});
+
+router.get("/api/users", async (request, response) => {
   const users = await User.find({});
 
   try {
@@ -14,7 +35,7 @@ app.get("/api/users", async (request, response) => {
   }
 });
 
-app.post("/api/user", async (request, response) => {
+router.post("/api/user", async (request, response) => {
 
   const user = new User(request.body);
 
@@ -26,7 +47,7 @@ app.post("/api/user", async (request, response) => {
   }
 });
 
-app.patch("/api/user/:id", async (request, response) => {
+router.patch("/api/user/:id", async (request, response) => {
 
   const objUser = request.body;
 
@@ -39,7 +60,7 @@ app.patch("/api/user/:id", async (request, response) => {
   }
 });
 
-app.delete("/api/user/:id", async (request, response) => {
+router.delete("/api/user/:id", async (request, response) => {
   try {
     const user = await User.findByIdAndDelete(request.params.id);
 
@@ -51,4 +72,4 @@ app.delete("/api/user/:id", async (request, response) => {
 });
 
 
-module.exports = app;
+module.exports = router;

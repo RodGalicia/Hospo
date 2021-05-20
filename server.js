@@ -1,5 +1,5 @@
 const routes = require('./controller');
-
+const path = require("path");
 /*  EXPRESS SETUP  */
 
 const express = require('express');
@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressSession);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log('App listening on port ' + port));
 
 /*  PASSPORT SETUP  */
@@ -48,47 +48,31 @@ passport.deserializeUser(User.deserializeUser());
 
 const connectEnsureLogin = require('connect-ensure-login');
 
-app.post('/login', (req, res, next) => {
-  passport.authenticate('local',
-  (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
 
-    if (!user) {
-      return res.redirect('/login?info=' + info);
-    }
 
-    req.logIn(user, function(err) {
-      if (err) {
-        return next(err);
-      }
+// app.get('/login',
+//   (req, res) => res.sendFile('html/login.html',
+//   { root: __dirname })
+// );
 
-      return res.redirect('/');
-    });
+// app.get('/',
+//   connectEnsureLogin.ensureLoggedIn(),
+//   (req, res) => res.sendFile('html/index.html', {root: __dirname})
+// );
 
-  })(req, res, next);
+// app.get('/private',
+//   connectEnsureLogin.ensureLoggedIn(),
+//   (req, res) => res.sendFile('html/private.html', {root: __dirname})
+// );
+
+// app.get('/user',
+//   connectEnsureLogin.ensureLoggedIn(),
+//   (req, res) => res.send({user: req.user})
+// );
+
+app.use("/api",routes);
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
-
-app.get('/login',
-  (req, res) => res.sendFile('html/login.html',
-  { root: __dirname })
-);
-
-app.get('/',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => res.sendFile('html/index.html', {root: __dirname})
-);
-
-app.get('/private',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => res.sendFile('html/private.html', {root: __dirname})
-);
-
-app.get('/user',
-  connectEnsureLogin.ensureLoggedIn(),
-  (req, res) => res.send({user: req.user})
-);
-
-app.use(routes);
 // User.register({name:'Testy', lastname: 'Test',email:'test@test.com',username:'test',password:'test'},'test'); 
