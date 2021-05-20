@@ -1,6 +1,4 @@
-const Job = require("./Job");
-const Review = require("./Review");
-const Restaurant = require("./Restaurant");
-const User = require("./User");
+const Restaurant = require("../models/Restaurant");
+const User = require("../models/User");
 
-module.exports = {Job, Review,Restaurant, User };
+module.exports = {Restaurant, User };

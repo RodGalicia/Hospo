@@ -30,16 +30,30 @@ const restaurantSchema = new Schema({
         required: "Enter an email for the manager"
     },
     jobs:[{
-        type: Schema.Types.ObjectId,
-        ref:"Job"
-
-    }],
+        position: {
+            type: String,
+            trim: true,
+            required: "Enter a job position for the restaurant"
+        },
+        salary: {
+            type: Number,
+            required: "Enter a salary for the restaurant"
+        },
+        requirement: {
+            type: String,
+            trim: true,
+            required: "Enter a requirement for the job"
+        }}],
     reviews:[{
-        type: Schema.Types.ObjectId,
-        ref:"Review"
-
-    }]
-    
+        score: {
+            type: Number,
+            required: "Enter a score for the restaurant"
+        },
+        review: {
+            type: String,
+            trim: true,
+            required: "Enter a review for the restaurant"
+        }}] 
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema)
