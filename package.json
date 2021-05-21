@@ -30,6 +30,7 @@
     "heroku": "^7.54.0",
     "if-env": "^1.0.4",
     "mongoose": "^5.12.9",
+    "node": "^16.1.0",
     "passport": "^0.4.1",
     "passport-local-mongoose": "^6.1.0",
     "react-bootstrap": "^1.6.0"
