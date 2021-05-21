@@ -33,8 +33,15 @@ app.use(passport.session());
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://localhost/hospodb',
-  { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/calm-thicket',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+);
 
 /* PASSPORT LOCAL AUTHENTICATION */
 const {User} = require('./models');
