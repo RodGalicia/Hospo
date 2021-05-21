@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Route path="/" exact><Home></Home></Route>  
+        <Route path="/" exact><Login></Login></Route>  
         <Route path="/login" exact><Login></Login></Route>  
         <Route path="/private" exact><Private></Private></Route> 
         <Route path="/register" exact><Register></Register></Route>  
