@@ -34,7 +34,7 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/calm-thicket',
+  process.env.MONGODB_URI || 'mongodb://localhost/hospodb',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
