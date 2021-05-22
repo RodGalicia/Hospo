@@ -5,7 +5,9 @@ const path = require("path");
 const express = require('express');
 const app = express();
 
-app.use(express.static(__dirname));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 const bodyParser = require('body-parser');
 const expressSession = require('express-session')({
